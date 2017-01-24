@@ -1,0 +1,6 @@
+<% include top %>
+    <h3><%= note.title %></h2>
+    <p><%= note.body %></p>
+    <hr/>
+    <a href="/noteedit?id=<%= id %>">Edit</a> | <a href="/notedelete?id=<%= id %>">Delete</a>
+<% include bottom %>

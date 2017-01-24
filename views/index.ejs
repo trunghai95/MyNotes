@@ -1,0 +1,5 @@
+<% include top %>
+    <% notes.forEach(function(note) { %>
+        <p><a href="/noteview?id=<%= note.id %>"><%= note.title %></a></p>
+    <% }); %>
+<% include bottom %>
