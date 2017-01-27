@@ -1,3 +1,4 @@
+var path = require('path');
 var sqlite3 = require('sqlite3');
 sqlite3.verbose();
 var db = undefined;
@@ -5,8 +6,9 @@ var db = undefined;
 const DB_NAME = 'db.sqlite3';
 
 exports.connect = function(callback) {
-    db = new sqlite3.Database(DB_NAME, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
-        function(err) { callback(err); });
+    db = new sqlite3.Database(path.join(__dirname, DB_NAME), 
+        sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, 
+        callback);
 }
 
 exports.disconnect = function(callback) {
@@ -20,13 +22,7 @@ exports.insert = function(id, title, body, callback) {
 
     db.run(`INSERT INTO notes(id, title, body) VALUES (?, ?, ?);`, 
         [id, title, body],
-        function(err) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(null);
-            }
-        });
+        callback);
 }
 
 exports.update = function(id, title, body, callback) {
@@ -36,13 +32,7 @@ exports.update = function(id, title, body, callback) {
 
     db.run(`UPDATE notes SET title = ?, body = ? WHERE id = ?;`,
         [title, body, id],
-        function(err) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(null);
-            }
-        });
+        callback);
 }
 
 exports.get = function(id, callback) {
@@ -62,13 +52,7 @@ exports.get = function(id, callback) {
 exports.delete = function(id, callback) {
     db.run(`DELETE FROM notes WHERE id = ?;`,
         [id],
-        function(err) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(null);
-            }
-        });
+        callback);
 }
 
 exports.getAll = function(callback) {

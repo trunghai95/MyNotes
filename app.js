@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var routes = require('./routes/notes');
-var model = require('./models/notes');
+
+var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+var model = require('./models-' + config.database + '/notes');
 
 model.connect(function(err) {
     if (err)
