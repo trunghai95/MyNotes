@@ -11,7 +11,7 @@ var routes = require('./routes/notes');
 var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 var model = require('./models-' + config.database + '/notes');
 
-model.connect(function(err) {
+model.connect(config, function(err) {
     if (err)
         throw err;
 });
@@ -32,13 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', routes.index);
-app.get('/noteview', routes.view);
-app.get('/noteedit', routes.edit);
-app.get('/noteadd', routes.add);
-app.post('/notesave', routes.save);
-app.get('/notedelete', routes.delete);
-app.post('/notedestroy', routes.destroy);
+app.use('/', routes.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

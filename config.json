@@ -1,3 +1,6 @@
 {
-    "database": "mongoose"
+    "sqlite3_db_name": "mysql",
+    "mongodb_db_uri": "mongodb://localhost/notes",
+    "mysql_db_uri": "mysql://root:26101995@localhost/notes",
+    "database": "mysql"
 }

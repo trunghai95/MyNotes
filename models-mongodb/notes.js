@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-const DB_URL = 'mongodb://localhost/notes';
 
 var NoteSchema = mongoose.Schema({
     id: String,
@@ -10,8 +9,8 @@ var NoteSchema = mongoose.Schema({
 mongoose.model('Note', NoteSchema);
 var Note = mongoose.model('Note');
 
-exports.connect = function(callback) {
-    mongoose.connect(DB_URL, callback);
+exports.connect = function(config, callback) {
+    mongoose.connect(config.mongodb_db_uri, callback);
 }
 
 exports.disconnect = function(callback) {

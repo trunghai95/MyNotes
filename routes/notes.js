@@ -1,10 +1,12 @@
+var express = require('express');
+var router = express.Router();
 var model = undefined;
 
 exports.configure = function(model_input) {
     model = model_input;
 }
 
-exports.index = function(req, res, next) {
+router.get('/', function(req, res, next) {
     model.getAll(function(err, list) {
         if (err) {
             res.render('showerror', {
@@ -18,9 +20,9 @@ exports.index = function(req, res, next) {
             });
         }
     });
-};
+});
 
-exports.view = function(req, res, next) {
+router.get('/noteview', function(req, res, next) {
     var id = req.query.id;
 
     model.get(id, function(err, note) {
@@ -37,9 +39,9 @@ exports.view = function(req, res, next) {
             });
         }
     });
-}
+});
 
-exports.edit = function(req, res, next) {
+router.get('/noteedit', function(req, res, next) {
     var id = req.query.id;
 
     model.get(id, function(err, note) {
@@ -56,17 +58,17 @@ exports.edit = function(req, res, next) {
             });
         }
     });
-}
+});
 
-exports.add = function(req, res, next) {
+router.get('/noteadd', function(req, res, next) {
     res.render('noteedit', {
         title: 'Add note',
         id: '',
         note: null
     });
-}
+});
 
-exports.save = function(req, res, next) {
+router.post('/notesave', function(req, res, next) {
     var id = req.body.id;
 
     if (!id) {
@@ -93,9 +95,9 @@ exports.save = function(req, res, next) {
             }
         });
     }
-}
+});
 
-exports.delete = function(req, res, next) {
+router.get('/notedelete', function(req, res, next) {
     var id = req.query.id;
 
     model.get(id, function(err, note) {
@@ -112,9 +114,9 @@ exports.delete = function(req, res, next) {
             });
         }
     })
-}
+});
 
-exports.destroy = function(req, res, next) {
+router.post('/notedestroy', function(req, res, next) {
     var id = req.body.id;
 
     model.delete(id, function(err) {
@@ -127,4 +129,6 @@ exports.destroy = function(req, res, next) {
             res.redirect('/');
         }
     });
-}
+});
+
+exports.router = router;

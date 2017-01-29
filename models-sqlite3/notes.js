@@ -5,8 +5,8 @@ var db = undefined;
 
 const DB_NAME = 'db.sqlite3';
 
-exports.connect = function(callback) {
-    db = new sqlite3.Database(path.join(__dirname, DB_NAME), 
+exports.connect = function(config, callback) {
+    db = new sqlite3.Database(path.join(__dirname, config.sqlite3_db_name), 
         sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, 
         callback);
 }
