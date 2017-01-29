@@ -1,6 +1,6 @@
 # Notes
 
-- A simple web application for noting, based on the [Node.js tutorial on PhoCode](http://phocode.com/javascript/nodejs-lap-trinh-web-voi-node-js/) (Vietnamese).
+- A simple web application for taking notes, based on the [Node.js tutorial on PhoCode](http://phocode.com/javascript/nodejs-lap-trinh-web-voi-node-js/) (Vietnamese).
 - Built on __Node.js__ (using __Express.js__ framework).
 - __SQLite3__, __MongoDB__ or __MySQL__ for database.
 
