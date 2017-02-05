@@ -1,30 +1,17 @@
-var Sequelize = require('sequelize');
-var Note = undefined
+var Notes = undefined;
 
-exports.connect = function(config, callback) {
-    var sqlz = new Sequelize(config.mysql_db_uri, { logging: false });
-    Note = sqlz.define('Note', {
-        id: {
-            type: Sequelize.STRING,
-            primaryKey: true,
-            allowNull: false
-        },
-        title: Sequelize.STRING,
-        body: Sequelize.TEXT
-    });
-
-    Note.sync().then(function() {
-        callback(null);
-    }).error(function(err) {
-        callback(err);
-    })
+/**
+ * Get the sequelize model
+ */
+exports.configure = function(inputModel) {
+    Notes = inputModel;
 }
 
-exports.disconnect = function(callback) {
-    callback();
-}
-
-exports.insert = function(id, title, body, callback) {
+/**
+ * Create a new note
+ */
+exports.create = function(id, title, body, userId, callback) {
+    // Generate a title if title is empty
     if (!title) {
         title = 'Untitled_' + id;
     }
@@ -32,7 +19,8 @@ exports.insert = function(id, title, body, callback) {
     Note.create({
         id: id,
         title: title,
-        body: body
+        body: body,
+        userId: userId
     }).then(function(note) {
         callback(null);
     }).error(function(err) {
@@ -40,29 +28,46 @@ exports.insert = function(id, title, body, callback) {
     });
 }
 
-exports.get = function(id, callback) {
+/**
+ * Get note by note id and user id
+ * Return the title and body
+ */
+exports.read = function(id, userId, callback) {
     Note.find({
-        where: { id: id }
+        attributes: ['title', 'body'],
+        where: {
+            id: id,
+            userId: userId
+        }
     }).then(function(note) {
         if (note) {
             callback(null, note);
         } else {
-            callback('Cannot find id ' + id);
+            callback('Cannot find note ' + id);
         }
     }).error(function(err) {
         callback(err, null);
     });
 }
 
-exports.update = function(id, title, body, callback) {
+/**
+ * Update a note
+ * Only the user owning the note can update
+ */
+exports.update = function(id, title, body, userId, callback) {
+    // Generate a title if title is empty
     if (!title) {
         title = 'Untitled_' + id;
     }
 
     Note.find({
-        where: { id: id }
+        where: {
+            id: id,
+            userId: id
+        }
     }).then(function(note) {
         if (note) {
+            // Update note title and body.
             note.updateAttributes({
                 title: title,
                 body: body
@@ -72,27 +77,39 @@ exports.update = function(id, title, body, callback) {
                 callback(err);
             });
         } else {
-            callback('Cannot find id ' + id);
+            callback('Cannot find note ' + id);
         }
     }).error(function(err) {
         callback(err, null);
     });
 }
 
-exports.delete = function(id, callback) {
-    Note.find({
-        where: { id: id }
-    }).then(function(note) {
-        note.destroy().then(function() {
-            callback(null);
-        }).error(function(err) {
-            callback(err);
-        });
+/**
+ * Destroy a note
+ * Only the user owning the note can destroy
+ */
+exports.destroy = function(id, userId, callback) {
+    Note.destroy({
+        where: {
+            id: id,
+            userId: userId
+        }
+    }).then(function() {
+        callback(null);
+    }).error(function(err) {
+        callback(err);
     });
 }
 
-exports.getAll = function(callback) {
-    Note.findAll().then(function(list) {
+/**
+ * Get all notes by user
+ */
+exports.getAll = function(userId, callback) {
+    Note.findAll({
+        where: {
+            userId: userId
+        }
+    }).then(function(list) {
         callback(null, list);
     }).error(function(err) {
         callback(err, null);

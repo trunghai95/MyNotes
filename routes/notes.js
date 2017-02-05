@@ -7,7 +7,7 @@ exports.configure = function(model_input) {
 }
 
 router.get('/', function(req, res, next) {
-    model.getAll(function(err, list) {
+    model.Notes.getAll(function(err, list) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 router.get('/noteview', function(req, res, next) {
     var id = req.query.id;
 
-    model.get(id, function(err, note) {
+    model.Notes.get(id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
@@ -44,7 +44,7 @@ router.get('/noteview', function(req, res, next) {
 router.get('/noteedit', function(req, res, next) {
     var id = req.query.id;
 
-    model.get(id, function(err, note) {
+    model.Notes.get(id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
@@ -73,7 +73,7 @@ router.post('/notesave', function(req, res, next) {
 
     if (!id) {
         id = String(Date.now());
-        model.insert(id, req.body.title, req.body.body, function(err) {
+        model.Notes.insert(id, req.body.title, req.body.body, function(err) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',
@@ -84,7 +84,7 @@ router.post('/notesave', function(req, res, next) {
             }
         });
     } else {
-        model.update(id, req.body.title, req.body.body, function(err) {
+        model.Notes.update(id, req.body.title, req.body.body, function(err) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',
@@ -100,7 +100,7 @@ router.post('/notesave', function(req, res, next) {
 router.get('/notedelete', function(req, res, next) {
     var id = req.query.id;
 
-    model.get(id, function(err, note) {
+    model.Notes.get(id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
@@ -119,7 +119,7 @@ router.get('/notedelete', function(req, res, next) {
 router.post('/notedestroy', function(req, res, next) {
     var id = req.body.id;
 
-    model.delete(id, function(err) {
+    model.Notes.delete(id, function(err) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',

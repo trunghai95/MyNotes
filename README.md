@@ -2,23 +2,29 @@
 
 - A simple web application for noting, based on the [Node.js tutorial on PhoCode](http://phocode.com/javascript/nodejs-lap-trinh-web-voi-node-js/) (Vietnamese).
 - Built on __Node.js__ (using __Express.js__ framework).
-- __SQLite3__, __MongoDB__ or __MySQL__ for database.
+- __MySQL__ for database.
 
 ## Screenshots
-![Index](./screenshots/index.png)
 *Index page*
+![Index](./screenshots/index.png)
 
-![Add note](./screenshots/noteadd.png)
 *Adding a new note*
+![Add note](./screenshots/noteadd.png)
 
-![View note](./screenshots/noteview.png)
 *Viewing a note*
+![View note](./screenshots/noteview.png)
 
-![Index2](./screenshots/index2.png)
 *Index page after adding the note*
+![Index2](./screenshots/index2.png)
 
-![Delete note](./screenshots/notedelete.png)
 *Deleting a note*
+![Delete note](./screenshots/notedelete.png)
+
+## Changelog 04/02/2017
+
+- Deprecate __SQLite3__ and __MongoDB__ database.
+- Reconstruct the __MySQL__ models.
+- TODO: Add source code for users model, fix the routes layer.
 
 ## Changelog 29/01/2017
 

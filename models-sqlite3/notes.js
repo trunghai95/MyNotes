@@ -1,3 +1,8 @@
+/**
+ * This module is deprecated
+ */
+throw "Sqlite3 model is deprecated, please use MySQL instead!";
+
 var path = require('path');
 var sqlite3 = require('sqlite3');
 sqlite3.verbose();

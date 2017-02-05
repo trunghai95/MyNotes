@@ -1,3 +1,8 @@
+/**
+ * This module is deprecated
+ */
+throw "MongoDB model is deprecated, please use MySQL instead!";
+
 var mongoose = require('mongoose');
 
 var NoteSchema = mongoose.Schema({
