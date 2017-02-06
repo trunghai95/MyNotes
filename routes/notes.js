@@ -72,8 +72,7 @@ router.post('/notesave', function(req, res, next) {
     var id = req.body.id;
 
     if (!id) {
-        id = String(Date.now());
-        model.Notes.insert(id, req.body.title, req.body.body, function(err) {
+        model.Notes.insert(req.body.title, req.body.body, function(err, id) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',

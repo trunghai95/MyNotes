@@ -8,21 +8,32 @@ exports.configure = function(inputModel) {
 }
 
 /**
- * Create a new note
+ * Generate note id
  */
-exports.create = function(id, title, body, userId, callback) {
+function generateId() {
+    return String(Date.now());
+}
+
+/**
+ * Create a new note
+ * Return id of the new note
+ */
+exports.create = function(title, body, userId, callback) {
+    // Generate note id
+    var id = generateId();
+
     // Generate a title if title is empty
     if (!title) {
         title = 'Untitled_' + id;
     }
 
-    Note.create({
+    Notes.create({
         id: id,
         title: title,
         body: body,
         userId: userId
     }).then(function(note) {
-        callback(null);
+        callback(null, id);
     }).error(function(err) {
         callback(err);
     });
@@ -33,20 +44,22 @@ exports.create = function(id, title, body, userId, callback) {
  * Return the title and body
  */
 exports.read = function(id, userId, callback) {
-    Note.find({
-        attributes: ['title', 'body'],
+    Notes.find({
         where: {
             id: id,
             userId: userId
         }
     }).then(function(note) {
         if (note) {
-            callback(null, note);
+            callback(null, {
+                title: note.title,
+                body: note.body
+            });
         } else {
             callback('Cannot find note ' + id);
         }
     }).error(function(err) {
-        callback(err, null);
+        callback(err);
     });
 }
 
@@ -60,7 +73,7 @@ exports.update = function(id, title, body, userId, callback) {
         title = 'Untitled_' + id;
     }
 
-    Note.find({
+    Notes.find({
         where: {
             id: id,
             userId: id
@@ -72,7 +85,7 @@ exports.update = function(id, title, body, userId, callback) {
                 title: title,
                 body: body
             }).then(function() {
-                callback(null);
+                callback();
             }).error(function(err) {
                 callback(err);
             });
@@ -80,7 +93,7 @@ exports.update = function(id, title, body, userId, callback) {
             callback('Cannot find note ' + id);
         }
     }).error(function(err) {
-        callback(err, null);
+        callback(err);
     });
 }
 
@@ -89,29 +102,37 @@ exports.update = function(id, title, body, userId, callback) {
  * Only the user owning the note can destroy
  */
 exports.destroy = function(id, userId, callback) {
-    Note.destroy({
+    Notes.destroy({
         where: {
             id: id,
             userId: userId
         }
     }).then(function() {
-        callback(null);
+        callback();
     }).error(function(err) {
         callback(err);
     });
 }
 
 /**
- * Get all notes by user
+ * Get all note titles by user
  */
-exports.getAll = function(userId, callback) {
-    Note.findAll({
+exports.getAllTitles = function(userId, callback) {
+    Notes.findAll({
         where: {
             userId: userId
         }
-    }).then(function(list) {
-        callback(null, list);
+    }).then(function(notes) {
+        var result = [];
+        notes.forEach(function(note) {
+            result.push({
+                id: note.id,
+                title: note.title,
+            });
+        });
+
+        callback(null, notes);
     }).error(function(err) {
-        callback(err, null);
+        callback(err);
     });
 }

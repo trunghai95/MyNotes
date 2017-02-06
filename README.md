@@ -20,13 +20,18 @@
 *Deleting a note*
 ![Delete note](./screenshots/notedelete.png)
 
-## Changelog 04/02/2017
+### Changelog 06/02/2017
+
+- Complete models.
+- TODO: Change the routes layer for user authentication.
+
+### Changelog 04/02/2017
 
 - Deprecate __SQLite3__ and __MongoDB__ database.
 - Reconstruct the __MySQL__ models.
 - TODO: Add source code for users model, fix the routes layer.
 
-## Changelog 29/01/2017
+### Changelog 29/01/2017
 
 - Refine source code (a little bit!).
 - Add __MySQL__ for database.
@@ -37,7 +42,7 @@
 - Fix noteview (multiline notes are now really multiline!).
 - Add demo screenshots.
 
-## Changelog 27/01/2017
+### Changelog 27/01/2017
 
 - Add __MongoDB__ for database.
 - Can choose between SQLite3 and MongoDB by setting the `database` field in *config.json* (`sqlite3` for SQLite3 and `mongodb` for MongoDB).
