@@ -1,133 +1,144 @@
-var express = require('express');
-var router = express.Router();
-var model = undefined;
+var models = undefined;
 
-exports.configure = function(model_input) {
-    model = model_input;
+/**
+ * Get the database models
+ */
+exports.configure = function(inputModels) {
+    models = inputModels;
 }
 
-router.get('/', function(req, res, next) {
-    model.Notes.getAll(function(err, list) {
+exports.index = function(req, res, next) {
+    models.Notes.getAllTitles(req.user.id, function(err, list) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
-                error: err
+                error: err,
+                user: req.user
             });
         } else {
             res.render('index', {
                 title: 'Homepage',
-                notes: list
+                notes: list,
+                user: req.user
             });
         }
     });
-});
+}
 
-router.get('/noteview', function(req, res, next) {
+exports.view = function(req, res, next) {
     var id = req.query.id;
 
-    model.Notes.get(id, function(err, note) {
+    models.Notes.read(id, req.user.id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
-                error: err
+                error: err,
+                user: req.user
             });
         } else {
             res.render('noteview', {
                 title: note.title,
                 note: note,
-                id: id
+                id: id,
+                user: req.user
             });
         }
     });
-});
+}
 
-router.get('/noteedit', function(req, res, next) {
+exports.edit = function(req, res, next) {
     var id = req.query.id;
 
-    model.Notes.get(id, function(err, note) {
+    models.Notes.read(id, req.user.id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
-                error: err
+                error: err,
+                user: req.user
             });
         } else {
             res.render('noteedit', {
                 title: 'Edit note',
                 id: id,
-                note: note
+                note: note,
+                user: req.user
             });
         }
     });
-});
+}
 
-router.get('/noteadd', function(req, res, next) {
+exports.add = function(req, res, next) {
     res.render('noteedit', {
         title: 'Add note',
         id: '',
-        note: null
+        note: null,
+        user: req.user
     });
-});
+}
 
-router.post('/notesave', function(req, res, next) {
+exports.save = function(req, res, next) {
     var id = req.body.id;
 
     if (!id) {
-        model.Notes.insert(req.body.title, req.body.body, function(err, id) {
+        models.Notes.create(req.body.title, req.body.body, req.user.id, function(err, id) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',
-                    error: err
+                    error: err,
+                    user: req.user
                 });
             } else {
                 res.redirect('/noteview?id=' + id);
             }
         });
     } else {
-        model.Notes.update(id, req.body.title, req.body.body, function(err) {
+        models.Notes.update(id, req.body.title, req.body.body, req.user.id, function(err) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',
-                    error: err
+                    error: err,
+                    user: req.user
                 });
             } else {
                 res.redirect('/noteview?id=' + id);
             }
         });
     }
-});
+}
 
-router.get('/notedelete', function(req, res, next) {
+exports.delete = function(req, res, next) {
     var id = req.query.id;
 
-    model.Notes.get(id, function(err, note) {
+    models.Notes.read(id, req.user.id, function(err, note) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
-                error: err
+                error: err,
+                user: req.user
             });
         } else {
             res.render('notedelete', {
                 title: 'Delete note',
                 id: id,
-                note: note
+                note: note,
+                user: req.user
             });
         }
     })
-});
+}
 
-router.post('/notedestroy', function(req, res, next) {
+exports.destroy = function(req, res, next) {
     var id = req.body.id;
 
-    model.Notes.delete(id, function(err) {
+    models.Notes.destroy(id, function(err) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',
-                error: err
+                error: err,
+                user: req.user
             });
         } else {
             res.redirect('/');
         }
     });
-});
-
-exports.router = router;
+}

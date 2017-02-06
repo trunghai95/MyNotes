@@ -3,6 +3,7 @@
 - A simple web application for taking notes, based on the [Node.js tutorial on PhoCode](http://phocode.com/javascript/nodejs-lap-trinh-web-voi-node-js/) (Vietnamese).
 - Built on __Node.js__ (using __Express.js__ framework).
 - __MySQL__ for database.
+- __Passport.js__ for user authentication.
 
 ## Screenshots
 *Index page*
@@ -23,7 +24,8 @@
 ### Changelog 06/02/2017
 
 - Complete models.
-- TODO: Change the routes layer for user authentication.
+- Add __Passport.js__ for user authentication.
+- TODO: Add registration.
 
 ### Changelog 04/02/2017
 

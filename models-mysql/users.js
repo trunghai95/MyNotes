@@ -27,7 +27,7 @@ exports.create = function(username, password, email, callback) {
         password: password,
         email: email
     }).then(function(user) {
-        callback(null);
+        callback(null, user.id);
     }).error(function(err) {
         callback(err);
     });
@@ -83,6 +83,7 @@ exports.findByUsername = function(username, callback) {
  * Update a user
  */
 exports.update = function(id, username, password, email, callback) {
+    // Create the new user attributes
     var newUser = {};
     if (username) {
         newUser.username = username;
@@ -98,12 +99,14 @@ exports.update = function(id, username, password, email, callback) {
         where: { id: id }
     }).then(function(user) {
         if (user) {
+            // Update user attributes
             user.updateAttributes(newUser).then(function() {
                 callback();
             }).error(function(err) {
                 callback(err);
             });
         } else {
+            // Cannot find the user
             callback('Cannot find user ' + id);
         }
     }).error(function(err) {

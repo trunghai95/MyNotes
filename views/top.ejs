@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %> | Notes</title>
+    <title><%= title %> | MyNotes</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
 </head>
 <body>
-    <div class="page-title">Notes</div>
+    <div class="page-title">MyNotes</div>
     <div class="navbar">
-        <a href="/">Home</a> | <a href="/noteadd">Add Note</a>
+        <a href="/">Home</a> | <a href="/noteadd">Add Note</a> |
+        <% if (user) { %>
+            Logged in as <a href="/account"><%= user.username %></a> | <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/login">Log in</a>
+        <% } %>
     </div>
     <br/>

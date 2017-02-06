@@ -16,6 +16,10 @@
     "sqlite3": "*",
     "mongoose": "*",
     "sequelize": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "connect-flash": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "express-session": "*"
   }
 }
