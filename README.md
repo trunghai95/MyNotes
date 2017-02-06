@@ -1,4 +1,4 @@
-# Notes
+# MyNotes
 
 - A simple web application for taking notes, based on the [Node.js tutorial on PhoCode](http://phocode.com/javascript/nodejs-lap-trinh-web-voi-node-js/) (Vietnamese).
 - Built on __Node.js__ (using __Express.js__ framework).
