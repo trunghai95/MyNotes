@@ -38,7 +38,7 @@ var app = express();
 // Configure passport
 passport.serializeUser(routes.serializeUser);
 passport.deserializeUser(routes.deserializeUser);
-passport.use(routes.strategy);
+passport.use('local', routes.strategy);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,7 +53,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Configure to use session
-app.use(expressSession({ secret: 'keyboard cat' }));
+app.use(expressSession({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());

@@ -49,7 +49,7 @@ exports.findById = function(id, callback) {
             });
         } else {
             // Cannot find the user
-            callback('Cannot find user ' + id);
+            callback(null, null);
         }
     }).error(function(err) {
         callback(err);
@@ -72,7 +72,7 @@ exports.findByUsername = function(username, callback) {
             });
         } else {
             // Cannot find the user
-            callback('Cannot find user ' + username);
+            callback(null, null);
         }
     }).error(function(err) {
         callback(err);

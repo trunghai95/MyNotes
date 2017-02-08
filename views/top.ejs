@@ -7,9 +7,9 @@
 <body>
     <div class="page-title">MyNotes</div>
     <div class="navbar">
-        <a href="/">Home</a> | <a href="/noteadd">Add Note</a> |
+        <a href="/">Home</a> |
         <% if (user) { %>
-            Logged in as <a href="/account"><%= user.username %></a> | <a href="/logout">Logout</a>
+            <a href="/noteadd">Add Note</a> | Logged in as <a href="/account"><%= user.username %></a> | <a href="/logout">Logout</a>
         <% } else { %>
             <a href="/login">Log in</a>
         <% } %>

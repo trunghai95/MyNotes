@@ -19,9 +19,10 @@ exports.configure = function(params) {
     // Get passport object
     passport = params.passport;
     router.post('/doLogin', passport.authenticate('local', {
+        successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
-    }), users.postLogin);
+    }));
 }
 
 // Router methods

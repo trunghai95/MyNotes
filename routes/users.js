@@ -24,9 +24,7 @@ exports.strategy = new LocalStrategy(function(username, password, callback) {
     process.nextTick(function() {
         models.Users.findByUsername(username, function(err, user) {
             if (err) {
-                return callback(null, false, {
-                    message: err
-                });
+                return callback(err);
             }
 
             if (user) {
@@ -36,12 +34,12 @@ exports.strategy = new LocalStrategy(function(username, password, callback) {
                     // Wrong password
                     return callback(null, false, {
                         message: 'Wrong password'
-                    })
+                    });
                 }
             } else {
                 // Cannot find user
                 return callback(null, false, {
-                    message: 'Cannot find user ' + username
+                    message: 'Invalid username'
                 });
             }
         });
@@ -69,6 +67,7 @@ exports.login = function(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/');
     }
+
     res.render('login', {
         title: 'Login',
         user: req.user,
@@ -76,12 +75,7 @@ exports.login = function(req, res, next) {
     });
 }
 
-exports.postLogin = function(req, res, next) {
-    res.redirect('/');
-}
-
 exports.logout = function(req, res, next) {
-    console.log('abcd');
     req.logout();
     res.redirect('/login');
 }
