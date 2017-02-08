@@ -27,7 +27,7 @@ exports.create = function(username, password, email, callback) {
         password: password,
         email: email
     }).then(function(user) {
-        callback(null, user.id);
+        callback(null, user);
     }).error(function(err) {
         callback(err);
     });
@@ -40,17 +40,7 @@ exports.findById = function(id, callback) {
     Users.find({
         where: { id: id }
     }).then(function(user) {
-        if (user) {
-            callback(null, {
-                id: user.id,
-                username: user.username,
-                password: user.password,
-                email: user.email
-            });
-        } else {
-            // Cannot find the user
-            callback(null, null);
-        }
+        callback(null, user);
     }).error(function(err) {
         callback(err);
     });
@@ -63,17 +53,20 @@ exports.findByUsername = function(username, callback) {
     Users.find({
         where: { username: username }
     }).then(function(user) {
-        if (user) {
-            callback(null, {
-                id: user.id,
-                username: user.username,
-                password: user.password,
-                email: user.email
-            });
-        } else {
-            // Cannot find the user
-            callback(null, null);
-        }
+        callback(null, user);
+    }).error(function(err) {
+        callback(err);
+    });
+}
+
+/**
+ * Find user by email
+ */
+exports.findByEmail = function(email, callback) {
+    Users.find({
+        where: { email: email }
+    }).then(function(user) {
+        callback(null, user);
     }).error(function(err) {
         callback(err);
     });

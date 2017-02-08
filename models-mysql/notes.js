@@ -33,7 +33,7 @@ exports.create = function(title, body, userId, callback) {
         body: body,
         userId: userId
     }).then(function(note) {
-        callback(null, id);
+        callback(null, note);
     }).error(function(err) {
         callback(err);
     });
@@ -76,7 +76,7 @@ exports.update = function(id, title, body, userId, callback) {
     Notes.find({
         where: {
             id: id,
-            userId: id
+            userId: userId
         }
     }).then(function(note) {
         if (note) {

@@ -7,7 +7,7 @@ var config = require('../config');
  * Connect to the database and define the models.
  */
 exports.connect = function(callback) {
-    var sqlz = new Sequelize(config.mysql_db_uri/*, { logging: false }*/);
+    var sqlz = new Sequelize(config.mysql_db_uri, { logging: false });
 
     var Users = sqlz.define('User', {
         id: {

@@ -21,6 +21,11 @@
 *Deleting a note*
 ![Delete note](./screenshots/notedelete.png)
 
+### Changelog 08/02/2017
+
+- Add user registration.
+- Fix some minor bugs.
+
 ### Changelog 06/02/2017
 
 - Complete models.

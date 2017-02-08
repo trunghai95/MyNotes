@@ -80,7 +80,7 @@ exports.save = function(req, res, next) {
     var id = req.body.id;
 
     if (!id) {
-        models.Notes.create(req.body.title, req.body.body, req.user.id, function(err, id) {
+        models.Notes.create(req.body.title, req.body.body, req.user.id, function(err, note) {
             if (err) {
                 res.render('showerror', {
                     title: 'Error',
@@ -88,7 +88,7 @@ exports.save = function(req, res, next) {
                     user: req.user
                 });
             } else {
-                res.redirect('/noteview?id=' + id);
+                res.redirect('/noteview?id=' + note.id);
             }
         });
     } else {
@@ -130,7 +130,7 @@ exports.delete = function(req, res, next) {
 exports.destroy = function(req, res, next) {
     var id = req.body.id;
 
-    models.Notes.destroy(id, function(err) {
+    models.Notes.destroy(id, req.user.id, function(err) {
         if (err) {
             res.render('showerror', {
                 title: 'Error',

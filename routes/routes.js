@@ -6,7 +6,8 @@ var passport = undefined;
 // Methods for configuring passport
 exports.serializeUser = users.serialize;
 exports.deserializeUser = users.deserialize;
-exports.strategy = users.strategy;
+exports.loginStrategy = users.loginStrategy;
+exports.registerStrategy = users.registerStrategy;
 
 /**
  * Get the database models
@@ -18,9 +19,14 @@ exports.configure = function(params) {
 
     // Get passport object
     passport = params.passport;
-    router.post('/doLogin', passport.authenticate('local', {
+    router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/',
         failureRedirect: '/login',
+        failureFlash: true
+    }));
+    router.post('/register', passport.authenticate('local-register', {
+        successRedirect: '/registerDone',
+        failureRedirect: '/register',
         failureFlash: true
     }));
 }
@@ -36,5 +42,7 @@ router.post('/notedestroy', users.ensureAuthenticated, notes.destroy);
 router.get('/account', users.ensureAuthenticated, users.viewAccount);
 router.get('/login', users.login);
 router.get('/logout', users.logout);
+router.get('/register', users.register);
+router.get('/registerDone', users.registerDone);
 
 exports.router = router;

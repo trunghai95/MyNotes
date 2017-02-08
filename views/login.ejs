@@ -1,5 +1,5 @@
 <% include top %>
-    <form action="/doLogin" method="POST">
+    <form action="/login" method="POST">
         <h2>Log in</h2>
         <p><label for="username">Username:</label>
         <input type="text" name="username" id="username" placeholder="Enter username" required/></p>
@@ -7,7 +7,7 @@
         <p><label for="password">Password:</label>
         <input type="password" name="password" id="password" placeholder="Enter password" required/></p>
 
-        <p><input type="submit" value="Log in"></p>
+        <p><input type="submit" value="Log in"> <a href="/register">Create new account</a></p>
 
         <div class="error-message"><%= message %></div>
     </form>

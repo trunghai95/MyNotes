@@ -19,14 +19,6 @@ models.connect(function(err) {
     if (err) {
         throw err;
     }
-
-    // For testing only
-    // TODO: Delete this afterwards
-    models.Users.create('abc', '123', 'abc@gmail.com', function(err) {
-        if (err) {
-            throw err;
-        }
-    });
 });
 routes.configure({
     models: models,
@@ -35,10 +27,12 @@ routes.configure({
 
 var app = express();
 
+console.log('1');
 // Configure passport
 passport.serializeUser(routes.serializeUser);
 passport.deserializeUser(routes.deserializeUser);
-passport.use('local', routes.strategy);
+passport.use('local-login', routes.loginStrategy);
+passport.use('local-register', routes.registerStrategy);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

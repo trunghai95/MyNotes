@@ -1,0 +1,20 @@
+<% include top %>
+    <form action="/register" method="POST">
+        <h2>Register</h2>
+        <p><label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Enter username" required/></p>
+
+        <p><label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Enter password" required/></p>
+
+        <p><label for="confirmPassword">Confirm password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Enter password again" required/></p>
+
+        <p><label for="email">Username:</label>
+        <input type="email" name="email" id="email" placeholder="Enter email" required/></p>
+
+        <p><input type="submit" value="Register"></p>
+
+        <div class="error-message"><%= message %></div>
+    </form>
+<% include bottom %>
