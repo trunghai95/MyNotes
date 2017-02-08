@@ -27,7 +27,6 @@ routes.configure({
 
 var app = express();
 
-console.log('1');
 // Configure passport
 passport.serializeUser(routes.serializeUser);
 passport.deserializeUser(routes.deserializeUser);

@@ -6,8 +6,17 @@
 - __Passport.js__ for user authentication.
 
 ## Screenshots
+*Log in*
+![Log in](./screenshots/login.png)
+
+*Register*
+![Register](./screenshots/register.png)
+
 *Index page*
 ![Index](./screenshots/index.png)
+
+*Account info*
+![Account](./screenshots/account.png)
 
 *Adding a new note*
 ![Add note](./screenshots/noteadd.png)
