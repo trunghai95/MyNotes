@@ -6,29 +6,29 @@
 - __Passport.js__ for user authentication.
 
 ## Screenshots
+*Log in*  
 ![Log in](./screenshots/login.png)
-*Log in*
 
+*Register*  
 ![Register](./screenshots/register.png)
-*Register*
 
+*Index page*  
 ![Index](./screenshots/index.png)
-*Index page*
 
+*Account info*  
 ![Account](./screenshots/account.png)
-*Account info*
 
+*Adding a new note*  
 ![Add note](./screenshots/noteadd.png)
-*Adding a new note*
 
+*Viewing a note*  
 ![View note](./screenshots/noteview.png)
-*Viewing a note*
 
+*Index page after adding the note*  
 ![Index2](./screenshots/index2.png)
-*Index page after adding the note*
 
+*Deleting a note*  
 ![Delete note](./screenshots/notedelete.png)
-*Deleting a note*
 
 ### Changelog 08/02/2017
 
