@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/workforce"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -20,6 +20,7 @@
     "connect-flash": "*",
     "passport": "*",
     "passport-local": "*",
-    "express-session": "*"
+    "express-session": "*",
+    "workforce": "*"
   }
 }
